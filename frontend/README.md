@@ -2,6 +2,7 @@
 
 Frontend moderno para o sistema Plenna desenvolvido com Vue 3, Tailwind CSS e design system baseado na paleta Plenna.
 
+
 ## 🚀 Tecnologias
 
 - **Vue 3** - Framework JavaScript (Composition API)
