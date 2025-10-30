@@ -42,22 +42,6 @@ export default {
     XMarkIcon
   },
   setup() {
-    const addToast = (toast) => {
-      const id = ++toastId
-      const newToast = { id, ...toast }
-      toasts.value.push(newToast)
-      
-      if (toast.duration !== 0) {
-        setTimeout(() => removeToast(id), toast.duration || 5000)
-      }
-      
-      return id
-    }
-
-    const removeToast = (id) => {
-      const index = toasts.value.findIndex(t => t.id === id)
-      if (index > -1) toasts.value.splice(index, 1)
-    }
 
     const getToastClasses = (type) => {
       const classes = {
@@ -76,6 +60,23 @@ export default {
       getToastClasses
     }
   }
+}
+
+const addToast = (toast) => {
+  const id = ++toastId
+  const newToast = { id, ...toast }
+  toasts.value.push(newToast)
+  
+  if (toast.duration !== 0) {
+    setTimeout(() => removeToast(id), toast.duration || 5000)
+  }
+  
+  return id
+}
+
+const removeToast = (id) => {
+  const index = toasts.value.findIndex(t => t.id === id)
+  if (index > -1) toasts.value.splice(index, 1)
 }
 
 export const useToast = () => {

@@ -13,7 +13,7 @@
             <router-link to="/dashboard" class="text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition-colors" :class="{ 'text-primary-500 dark:text-primary-400': $route.path === '/dashboard' }">Dashboard</router-link>
             <router-link to="/deposits" class="text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition-colors" :class="{ 'text-primary-500 dark:text-primary-400': $route.path === '/deposits' }">Depósitos</router-link>
             <router-link to="/withdrawals" class="text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition-colors" :class="{ 'text-primary-500 dark:text-primary-400': $route.path === '/withdrawals' }">Saques</router-link>
-            <router-link to="/checkouts" class="text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition-colors" :class="{ 'text-primary-500 dark:text-primary-400': $route.path === '/checkouts' }">Checkouts</router-link>
+            <!-- <router-link to="/checkouts" class="text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition-colors" :class="{ 'text-primary-500 dark:text-primary-400': $route.path === '/checkouts' }">Checkouts</router-link> -->
             <router-link to="/transactions" class="text-gray-700 dark:text-gray-200 hover:text-primary-500 dark:hover:text-primary-400 font-medium transition-colors" :class="{ 'text-primary-500 dark:text-primary-400': $route.path === '/transactions' }">Transações</router-link>
           </template>
           <template v-else>
