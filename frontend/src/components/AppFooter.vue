@@ -3,7 +3,9 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid md:grid-cols-4 gap-8">
         <div>
-          <div class="text-2xl font-bold text-white mb-4">PLENNA</div>
+          <div class="mb-4">
+            <img src="/src/assets/logo.png" alt="Plenna" class="h-48 w-48" />
+          </div>
           <p class="text-white/70 mb-4">Pagamentos globais sem fronteiras</p>
           <div class="flex space-x-4">
             <a href="#" class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors">
