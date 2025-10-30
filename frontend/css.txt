@@ -1,0 +1,7 @@
+dark azure #00555d
+Vivid azure #01b9ee
+Vivid ocean #01dde3
+Dark azure II #1a526b
+Azure #2d8bba
+white #FFFFFF
+Linear gradient 45degrees: #091e27, #48f0e7

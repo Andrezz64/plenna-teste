@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plenna - Venda parcelado, receba à vista e defina suas taxas</title>
+<meta name="description" content="Venda parcelado, receba à vista e defina suas taxas. Pagamentos globais, checkout inteligente e cobrança automatizada.">
+<link rel="icon" href="LOGO ISOLADA SIMBOLO AZUL PLENNA.png">
+<style>
+  /* --------------------------
+     Tokens Plenna
+  ---------------------------*/
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+  :root{
+    /* brand */
+    --pl-grad-bg: linear-gradient(90deg,#000000,#605e5e);
+    --pl-grad-secondary: linear-gradient(180deg,#004d48,#3ff3e7);
+    --pl-grad-secondary-soft: linear-gradient(180deg,#006a63,#7ff7ee);
+    --pl-white:#ffffff;
+    --pl-muted:#d3d7dc;
+    --pl-black:#000000;
+
+    /* type scale solicitada */
+    --fs-h1:24.8px;     /* headline bold */
+    --fs-h2:17.8px;     /* subheadline regular */
+    --fs-body:13.4px;   /* textos gerais */
+
+    /* radius e sombras */
+    --radius-pill:50px;
+    --radius-lg:16px;
+    --radius-md:12px;
+    --shadow-pill:0 10px 30px rgba(0,255,195,.25);
+    --shadow-card:0 8px 24px rgba(0,255,195,.18);
+    --shadow-card-hover:0 12px 28px rgba(0,255,195,.35);
+
+    /* largura de conteúdo */
+    --container:1200px;
+  }
+
+  /* --------------------------
+     Base
+  ---------------------------*/
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Montserrat',system-ui,sans-serif;
+    color:var(--pl-white);
+    background:var(--pl-grad-bg);
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+
+  /* --------------------------
+     Cabeçalho flutuante - igual ao print
+  ---------------------------*/
+  .header-wrap{
+    position:fixed;
+    top:24px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(calc(100% - 32px), 1320px);
+    z-index:1000;
+    pointer-events:none; /* a cápsula externa não intercepta cliques */
+  }
+  .header{
+    pointer-events:auto;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;
+    padding:12px 18px;
+    border-radius:9999px;
+    background:var(--pl-grad-secondary);
+    box-shadow:var(--shadow-pill);
+    backdrop-filter:blur(8px);
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;padding-left:6px
+  }
+  .brand .logo-simbolo{width:36px;filter:drop-shadow(0 0 10px #00e8ff)}
+  .brand .logo-word{height:22px}
+
+  /* barra de navegação central em cápsula */
+  .nav-pill{
+    flex:1 1 auto;
+    display:flex;justify-content:center;
+    background:linear-gradient(90deg,#3abcb4,#74e8e0);
+    border-radius:9999px;
+    padding:16px 26px;
+    min-height:52px;
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.15);
+  }
+  .nav{
+    display:flex;gap:54px;align-items:center;flex-wrap:wrap;
+  }
+  .nav a{
+    text-decoration:none;color:var(--pl-white);
+    font-weight:700; /* como no print */
+    font-size:var(--fs-h2);
+    letter-spacing:.2px;
+    position:relative;
+    transition:opacity .25s ease, transform .25s ease;
+  }
+  .nav a::after{
+    content:"";
+    position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);
+    width:0;height:3px;border-radius:3px;
+    background:var(--pl-white);
+    transition:width .25s ease;
+  }
+  .nav a:hover{opacity:.9;transform:translateY(-1px)}
+  .nav a:hover::after{width:60%}
+  .nav a.is-active::after{width:60%}
+
+  /* grupo de ações à direita igual ao print */
+  .actions{
+    display:flex;align-items:center;gap:14px;padding-right:6px
+  }
+  .btn{
+    text-decoration:none;white-space:nowrap;cursor:pointer;
+    font-size:var(--fs-body);line-height:1;
+    padding:12px 18px;border-radius:30px;transition:filter .2s, box-shadow .2s, transform .2s;
+  }
+  .btn-ghost{
+    color:var(--pl-white);
+    background:linear-gradient(90deg,#66efe7,#b2fff9);
+    mix-blend:screen;
+    opacity:.35;
+    border:1px solid rgba(255,255,255,.2);
+  }
+  .btn-cta{
+    position:relative;
+    color:var(--pl-white);
+    padding:10px;
+    background:linear-gradient(90deg,#66efe7,#29ffe8);
+    border-radius:9999px;
+    box-shadow:0 0 0 6px rgba(255,255,255,.25) inset, 0 8px 18px rgba(0,255,220,.25);
+  }
+  .btn-cta span{
+    display:inline-block;
+    padding:12px 22px;border-radius:9999px;
+    background:linear-gradient(180deg,#53d9d0 0%, #1a2b2b 95%);
+    box-shadow:inset 0 2px 12px rgba(0,0,0,.45);
+    font-weight:700;
+    font-size:var(--fs-h2);
+  }
+  .btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+
+  /* --------------------------
+     Seções
+  ---------------------------*/
+  main{padding-top:120px}
+  section{padding:80px 20px}
+  .container{max-width:var(--container);margin:0 auto}
+
+  h1{
+    font-size:var(--fs-h1);
+    font-weight:700;
+    text-align:center;
+    text-shadow:0 0 10px rgba(0,255,195,.35);
+    margin-bottom:16px;
+  }
+  .sub{
+    font-size:var(--fs-h2);
+    font-weight:400;
+    color:var(--pl-muted);
+    text-align:center;
+    margin:0 auto 28px auto;
+    max-width:980px;
+  }
+  p{font-size:var(--fs-body);color:var(--pl-muted);line-height:1.65}
+
+  /* hero media */
+  .hero-media{
+    margin:22px auto 8px auto;max-width:1100px;border-radius:12px;
+    box-shadow:0 0 22px rgba(0,255,195,.2);
+    overflow:hidden
+  }
+  .hero-media img,.hero-media video{width:100%;display:block}
+
+  .center-actions{display:flex;gap:12px;justify-content:center;margin-top:18px}
+  .btn-primary{
+    color:var(--pl-black);font-weight:600;text-decoration:none;
+    padding:12px 22px;border-radius:10px;
+    background:var(--pl-grad-secondary);
+    box-shadow:0 0 16px rgba(0,255,195,.25);
+  }
+  .btn-outline{
+    color:#00e8ff;border:1px solid #00e8ff;text-decoration:none;
+    padding:12px 22px;border-radius:10px;
+  }
+
+  /* --------------------------
+     Cards - verdes com texto branco
+  ---------------------------*/
+  .cards{
+    display:grid;gap:22px;
+    grid-template-columns:repeat(5,minmax(220px,1fr));
+  }
+  @media(max-width:1200px){.cards{grid-template-columns:repeat(3,minmax(220px,1fr))}}
+  @media(max-width:760px){.cards{grid-template-columns:repeat(1,minmax(220px,1fr))}}
+
+  .card{
+    background:var(--pl-grad-secondary);
+    color:var(--pl-white);
+    border-radius:12px;
+    padding:22px;
+    box-shadow:var(--shadow-card);
+    transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-card-hover);
+    filter:saturate(1.05);
+  }
+  .card h3{
+    font-size:var(--fs-h2);
+    font-weight:700;
+    color:var(--pl-white);
+    margin-bottom:8px;
+    text-shadow:0 1px 0 rgba(0,0,0,.25);
+  }
+  .card p{
+    color:var(--pl-white);
+    opacity:.95;
+  }
+
+  /* --------------------------
+     Seção Taxas
+  ---------------------------*/
+  .taxas{
+    display:grid;gap:28px;align-items:start;
+    grid-template-columns:1fr 1.2fr;
+  }
+  @media(max-width:960px){.taxas{grid-template-columns:1fr}}
+  .panel{
+    background:var(--pl-grad-secondary);
+    color:var(--pl-white);
+    border-radius:12px;
+    padding:28px;
+    box-shadow:var(--shadow-card);
+  }
+  .panel .kpi{
+    font-size:34px;font-weight:800;margin:6px 0 6px 0
+  }
+  .bullets{display:grid;gap:10px;margin-top:10px}
+  .bullet{
+    background:rgba(0,0,0,.25);
+    border-radius:12px;
+    padding:12px 14px;
+  }
+  .bullet small{font-size:var(--fs-body);color:#bfeeed}
+
+  /* --------------------------
+     Quem Somos
+  ---------------------------*/
+  .who{display:grid;gap:28px;grid-template-columns:1.2fr .8fr}
+  @media(max-width:1020px){.who{grid-template-columns:1fr}}
+  .bio{background:var(--pl-grad-secondary);border-radius:12px;box-shadow:var(--shadow-card);padding:28px}
+  .founder{
+    background:var(--pl-grad-secondary);border-radius:12px;box-shadow:var(--shadow-card);
+    padding:18px;display:grid;grid-template-columns:160px 1fr;gap:18px;align-items:center;
+  }
+  .founder h4{font-weight:700;font-size:var(--fs-h2)}
+  .founder p{color:var(--pl-white)}
+
+  /* --------------------------
+     FAQ
+  ---------------------------*/
+  .faq{max-width:var(--container);margin:0 auto}
+  .faq-list{display:grid;gap:12px}
+  .faq-item{
+    background:var(--pl-grad-secondary);
+    border-radius:12px;padding:16px 18px;
+    box-shadow:var(--shadow-card);
+  }
+  .faq-item summary{
+    list-style:none;cursor:pointer;outline:none;
+    color:var(--pl-white);font-weight:700;font-size:var(--fs-h2)
+  }
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item p{margin-top:8px;color:var(--pl-white)}
+
+  /* --------------------------
+     Rodapé
+  ---------------------------*/
+  footer{
+    margin-top:60px;
+    padding:34px 20px;
+    background:var(--pl-grad-secondary);
+    color:var(--pl-black);
+    text-align:center;
+    box-shadow:0 -8px 24px rgba(0,255,195,.18);
+  }
+  footer a{color:var(--pl-black);text-decoration:none;font-weight:700}
+  footer a:hover{text-decoration:underline}
+
+  /* --------------------------
+     Glow difuso pulsante
+  ---------------------------*/
+  @keyframes glowPulse{
+    0%{filter:drop-shadow(0 0 10px rgba(0,255,195,.30))}
+    50%{filter:drop-shadow(0 0 20px rgba(0,232,255,.45))}
+    100%{filter:drop-shadow(0 0 10px rgba(0,255,195,.30))}
+  }
+  .glow{animation:glowPulse 3.4s ease-in-out infinite}
+
+  /* espaçamento âncora por conta do header flutuante */
+  :target{scroll-margin-top:120px}
+</style>
+</head>
+<body>
+
+  <!-- Cabeçalho flutuante em cápsula -->
+  <div class="header-wrap">
+    <div class="header">
+      <div class="brand glow">
+        <img class="logo-simbolo" src="LOGO ISOLADA SIMBOLO AZUL PLENNA.png" alt="Plenna">
+        <img class="logo-word" src="ESCRITA ISOLADA BRANCO PLENNA.png" alt="Plenna">
+      </div>
+
+      <div class="nav-pill">
+        <nav class="nav">
+          <a href="#porque" class="is-active">Por que Plenna</a>
+          <a href="#produtos">Produtos</a>
+          <a href="#taxas">Taxas e Prazos</a>
+          <a href="#quem-somos">Quem Somos</a>
+          <a href="#faq">Suporte</a>
+        </nav>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-ghost" href="#porque">Entrar</a>
+        <a class="btn btn-cta glow" href="#cta"><span>Criar Conta</span></a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- Sessão 1 - Hero -->
+    <section id="porque">
+      <div class="container">
+        <h1 class="glow">Venda parcelado, receba à vista e defina suas taxas.</h1>
+        <p class="sub">Expanda suas vendas para o mundo todo. Pagamentos globais, checkout inteligente, cobrança automatizada, antecipação de recebíveis, área de membros personalizada e suporte humano.</p>
+        <div class="hero-media">
+          <!-- substitua por vídeo/imagem do herói -->
+          <img src="sessoes/hero-placeholder.jpg" alt="Interface Plenna">
+        </div>
+        <div class="center-actions" id="cta">
+          <a class="btn-outline" href="#produtos">Saiba mais</a>
+          <a class="btn-primary glow" href="#taxas">Criar Conta</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sessão 2 - Benefícios / Produtos -->
+    <section id="produtos">
+      <div class="container">
+        <h1>Vender deveria ser simples. Receber também.</h1>
+        <p class="sub">Com a Plenna, você vende parcelado, recebe à vista e garante cada pagamento. Um ecossistema completo que elimina as travas, amplia seu público e devolve o controle do seu negócio.</p>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Pagamentos Recorrentes</h3>
+            <p>Venda parcelado e receba à vista. Use boleto, Pix ou cartão com cobrança recorrente.</p>
+          </div>
+          <div class="card">
+            <h3>Métodos de Pagamento</h3>
+            <p>Pix, boleto, cartão e pagamentos internacionais em um único sistema.</p>
+          </div>
+          <div class="card">
+            <h3>Gestão de Cobrança</h3>
+            <p>Automação completa, retentativas inteligentes e segurança total no recebimento.</p>
+          </div>
+          <div class="card">
+            <h3>Checkout Inteligente</h3>
+            <p>Identifica o comportamento do cliente e otimiza conversão. Aceita dois cartões e retentativas automáticas.</p>
+          </div>
+          <div class="card">
+            <h3>Integrações</h3>
+            <p>Checkout transparente, IA com CodeChat e API para sua área de membros.</p>
+          </div>
+
+          <div class="card">
+            <h3>Área de Membros</h3>
+            <p>Crie e modele a experiência ideal com a identidade da sua marca.</p>
+          </div>
+          <div class="card">
+            <h3>Antecipação de Recebíveis</h3>
+            <p>Antecipe boletos. A Plenna assume o risco, você acelera o crescimento.</p>
+          </div>
+          <div class="card">
+            <h3>Indique e Ganhe</h3>
+            <p>Indique parceiros e receba até 2% das vendas deles. Bônus sem desconto para ninguém.</p>
+          </div>
+          <div class="card">
+            <h3>Eventos e Premiações</h3>
+            <p>Plaquinhas, eventos exclusivos e networking com quem está no seu nível.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sessão 3 - Taxa Plenna -->
+    <section id="taxas">
+      <div class="container">
+        <h1>O dinheiro é seu. E agora ele fica com você.</h1>
+        <div class="taxas">
+          <div class="panel">
+            <h3 style="font-size:var(--fs-h2);font-weight:700;margin-bottom:6px">Dados da Oferta</h3>
+            <div class="bullets">
+              <div class="bullet"><small>Valor da venda: <b>R$ 1.500,00</b></small></div>
+              <div class="bullet"><small>Recebido à vista: <b>R$ 1.614,60</b></small></div>
+              <div class="bullet"><small>Recebido acima da venda: <b>R$ 114,60</b></small></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3 style="text-align:center;font-size:var(--fs-h2);font-weight:700">Taxa Plenna</h3>
+            <p style="text-align:center;margin-bottom:10px">Você só paga quando vender. E quanto mais você vende, menos você paga.</p>
+            <div class="kpi" style="text-align:center">6,9% <span style="font-size:var(--fs-body);font-weight:700">+ R$ 1,99 por venda</span></div>
+            <div class="bullets" style="margin-top:12px">
+              <div class="bullet"><small>✔ Aprovação Imediata</small></div>
+              <div class="bullet"><small>✔ Saque PIX em D0</small></div>
+              <div class="bullet"><small>✔ Saque cartão em D2</small></div>
+              <div class="bullet"><small>✔ Pagamentos à vista em até 12x</small></div>
+              <div class="bullet"><small>✔ Pagamentos Globais</small></div>
+              <div class="bullet"><small>✔ Pagamentos Recorrentes</small></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top:22px">
+          <h3 style="font-size:var(--fs-h2);font-weight:700;margin-bottom:6px">Tenha Taxa 0 na Plenna</h3>
+          <p>Em outras plataformas, cerca de 20,8% do seu lucro desaparece em taxas. Na Plenna, você recupera esse valor e ainda ganha 10% a mais sobre o total da venda. Isso representa até 30% a mais no seu caixa, podendo zerar completamente a taxa da Plenna.</p>
+        </div>
+
+        <div class="center-actions" style="margin-top:18px">
+          <a class="btn-outline" href="#quem-somos">Saiba mais</a>
+          <a class="btn-primary glow" href="#cta">Criar Conta</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sessão 4 - Quem Somos -->
+    <section id="quem-somos">
+      <div class="container">
+        <h1>Feita por quem viveu o mercado. Movida por quem quer transformá-lo.</h1>
+        <div class="who" style="margin-top:18px">
+          <div class="bio">
+            <h3 style="font-size:var(--fs-h2);font-weight:700;margin-bottom:10px">A Plenna é um propósito</h3>
+            <p>A Plenna nasceu do sonho de dois infoprodutores que queriam levar o poder do conhecimento para mais pessoas. No caminho, entenderam uma verdade que o mercado ignorava: o que limita o acesso à educação não é a vontade de aprender, é o poder de pagar.</p>
+            <p style="margin-top:10px">Hoje, somos um ecossistema global que conecta quem ensina e quem aprende, unindo tecnologia, propósito e liberdade financeira. Com pagamentos recorrentes e alcance mundial, a Plenna torna possível vender, receber e crescer em qualquer lugar.</p>
+          </div>
+
+          <div class="grid-founders" style="display:grid;gap:18px">
+            <div class="founder">
+              <img src="sessoes/fundador-1.jpg" alt="João Gabriel Mansour" style="border-radius:10px">
+              <div>
+                <h4>João Gabriel Mansour - CEO e Fundador</h4>
+                <p>Mais de oito anos liderando equipes comerciais e estratégias de expansão com resultados consistentes e sustentáveis.</p>
+              </div>
+            </div>
+            <div class="founder">
+              <img src="sessoes/fundador-2.jpg" alt="João Pedro Duarte" style="border-radius:10px">
+              <div>
+                <h4>João Pedro Duarte - CTO e Fundador</h4>
+                <p>Especialista em growth e performance. Unindo dados, tecnologia e criatividade para impulsionar resultados no digital.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="center-actions" style="margin-top:22px">
+          <a class="btn-outline" href="#faq">Saiba mais</a>
+          <a class="btn-primary glow" href="#cta">Criar Conta</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sessão 5 - FAQ -->
+    <section id="faq">
+      <div class="container faq">
+        <h1>Perguntas Frequentes</h1>
+        <div class="faq-list" style="margin-top:18px">
+          <details class="faq-item" open>
+            <summary>O que é a Plenna?</summary>
+            <p>A Plenna é um ecossistema completo que une pagamentos, checkout, cobrança, antecipação e área de membros em um único lugar.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Como funciona o sistema de pagamentos recorrentes?</summary>
+            <p>Você vende parcelado, o cliente paga mensalmente e a Plenna garante cada cobrança com automação e retentativas inteligentes.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Eu recebo à vista mesmo vendendo parcelado?</summary>
+            <p>Sim. Você pode optar por receber o valor total imediatamente, mantendo o fluxo de caixa previsível.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Quais formas de pagamento a Plenna aceita?</summary>
+            <p>Pix, boleto, cartão e pagamentos internacionais, todos compatíveis com modelo recorrente.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Como entro em contato com o suporte?</summary>
+            <p>Atendimento humano, de segunda a sexta, das 9h às 20h. Fale conosco por WhatsApp ou e-mail.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Plenna Tecnologia © 2025 - Todos os direitos reservados •
+    <a href="#">Política de Privacidade</a> •
+    <a href="#">Termos de Uso</a>
+  </footer>
+
+</body>
+</html>

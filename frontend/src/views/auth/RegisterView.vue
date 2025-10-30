@@ -248,7 +248,10 @@ export default {
       error,
       showPassword,
       isFormValid,
-      handleRegister
+      handleRegister,
+      validateEmail,
+      maskPhone,
+      maskCPF
     }
   }
 }

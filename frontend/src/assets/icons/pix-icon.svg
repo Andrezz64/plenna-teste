@@ -1,0 +1,12 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="80" height="80" rx="16" fill="#01b9ee"/>
+  <path d="M20 30h40v20H20z" fill="white" opacity="0.2"/>
+  <path d="M25 35h30v10H25z" fill="white"/>
+  <text x="40" y="45" text-anchor="middle" fill="#01b9ee" font-family="Arial, sans-serif" font-size="8" font-weight="bold">PIX</text>
+  <circle cx="30" cy="25" r="2" fill="white"/>
+  <circle cx="40" cy="25" r="2" fill="white"/>
+  <circle cx="50" cy="25" r="2" fill="white"/>
+  <circle cx="30" cy="55" r="2" fill="white"/>
+  <circle cx="40" cy="55" r="2" fill="white"/>
+  <circle cx="50" cy="55" r="2" fill="white"/>
+</svg>
