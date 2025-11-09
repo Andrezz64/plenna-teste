@@ -253,14 +253,14 @@ export default {
     return {
       currentSlide: 0,
       carouselImages: [
-        { src: '/images/1.png', alt: 'Dashboard Plenna 1' },
-        { src: '/images/2.png', alt: 'Dashboard Plenna 2' },
-        { src: '/images/3.png', alt: 'Dashboard Plenna 3' },
-        { src: '/images/4.png', alt: 'Dashboard Plenna 4' },
-        { src: '/images/5.png', alt: 'Dashboard Plenna 4' },
-        { src: '/images/6.png', alt: 'Dashboard Plenna 6' },
-        { src: '/images/7.png', alt: 'Dashboard Plenna 7' },
-        { src: '/images/8.png', alt: 'Dashboard Plenna 7' },
+        { src: '@/assets/images/1.png', alt: 'Dashboard Plenna 1' },
+        { src: '@/assets/images/2.png', alt: 'Dashboard Plenna 2' },
+        { src: '@/assets/images/3.png', alt: 'Dashboard Plenna 3' },
+        { src: '@/assets/images/4.png', alt: 'Dashboard Plenna 4' },
+        { src: '@/assets/images/5.png', alt: 'Dashboard Plenna 4' },
+        { src: '@/assets/images/6.png', alt: 'Dashboard Plenna 6' },
+        { src: '@/assets/images/7.png', alt: 'Dashboard Plenna 7' },
+        { src: '@/assets/images/8.png', alt: 'Dashboard Plenna 7' },
       ],
       carouselInterval: null
     }
