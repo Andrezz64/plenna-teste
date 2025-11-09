@@ -1,0 +1,40 @@
+<svg width="600" height="500" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#091e27;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#48f0e7;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="600" height="500" fill="url(#heroGradient)"/>
+  
+  <circle cx="300" cy="250" r="120" fill="none" stroke="white" stroke-width="2" opacity="0.3"/>
+  <circle cx="300" cy="250" r="100" fill="none" stroke="white" stroke-width="1" opacity="0.5"/>
+  <circle cx="300" cy="250" r="80" fill="none" stroke="white" stroke-width="1" opacity="0.7"/>
+  
+  <path d="M180 250 Q300 150 420 250 Q300 350 180 250" stroke="white" stroke-width="1" fill="none" opacity="0.4"/>
+  <path d="M300 130 L300 370" stroke="white" stroke-width="1" opacity="0.4"/>
+  <path d="M220 190 L380 190" stroke="white" stroke-width="1" opacity="0.4"/>
+  <path d="M220 310 L380 310" stroke="white" stroke-width="1" opacity="0.4"/>
+  
+  <circle cx="200" cy="180" r="8" fill="#01b9ee"/>
+  <circle cx="400" cy="200" r="8" fill="#01dde3"/>
+  <circle cx="180" cy="320" r="8" fill="#2d8bba"/>
+  <circle cx="420" cy="300" r="8" fill="#01b9ee"/>
+  <circle cx="300" cy="150" r="8" fill="#01dde3"/>
+  <circle cx="300" cy="350" r="8" fill="#2d8bba"/>
+  
+  <path d="M200 180 Q250 200 300 250" stroke="#01b9ee" stroke-width="2" fill="none" opacity="0.8"/>
+  <path d="M400 200 Q350 220 300 250" stroke="#01dde3" stroke-width="2" fill="none" opacity="0.8"/>
+  <path d="M180 320 Q240 300 300 250" stroke="#2d8bba" stroke-width="2" fill="none" opacity="0.8"/>
+  <path d="M420 300 Q360 280 300 250" stroke="#01b9ee" stroke-width="2" fill="none" opacity="0.8"/>
+  
+  <rect x="100" y="100" width="40" height="30" rx="4" fill="white" opacity="0.9"/>
+  <text x="120" y="120" text-anchor="middle" fill="#01b9ee" font-size="10" font-weight="bold">PIX</text>
+  
+  <rect x="460" y="120" width="50" height="35" rx="4" fill="white" opacity="0.9"/>
+  <text x="485" y="142" text-anchor="middle" fill="#01dde3" font-size="9" font-weight="bold">GLOBAL</text>
+  
+  <rect x="80" y="380" width="60" height="40" rx="4" fill="white" opacity="0.9"/>
+  <text x="110" y="405" text-anchor="middle" fill="#2d8bba" font-size="9" font-weight="bold">PAYMENTS</text>
+</svg>
