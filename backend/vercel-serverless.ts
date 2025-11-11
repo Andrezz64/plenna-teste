@@ -1,11 +1,11 @@
 import { Handler, Context } from 'aws-lambda';
-import { createServer, proxy } from '@vendia/serverless-express';
+import serverlessExpress from '@vendia/serverless-express';
 import { AppModule } from './src/app.module';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
-let server: Handler;
+let server: any;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,14 +24,15 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  await app.init(); // ⚠️ importante no serverless
+  await app.init();
+
   const expressApp = app.getHttpAdapter().getInstance();
-  return createServer(expressApp);
+  return serverlessExpress({ app: expressApp });
 }
 
 export const handler: Handler = async (event: any, context: Context) => {
   if (!server) {
     server = await bootstrap();
   }
-  return proxy(server, event, context, 'PROMISE').promise;
+  return server(event, context);
 };
