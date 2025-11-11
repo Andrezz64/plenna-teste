@@ -1,7 +1,11 @@
+import { Handler, Context } from 'aws-lambda';
+import { createServer, proxy } from '@vendia/serverless-express';
+import { AppModule } from './src/app.module';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { AppModule } from './app.module';
+
+let server: Handler;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,9 +20,18 @@ async function bootstrap() {
     .setVersion('1.0')
     .addBearerAuth()
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(process.env.PORT || 3000);
+  await app.init(); // ⚠️ importante no serverless
+  const expressApp = app.getHttpAdapter().getInstance();
+  return createServer(expressApp);
 }
-bootstrap();
+
+export const handler: Handler = async (event: any, context: Context) => {
+  if (!server) {
+    server = await bootstrap();
+  }
+  return proxy(server, event, context, 'PROMISE').promise;
+};
