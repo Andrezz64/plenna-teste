@@ -10,7 +10,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
-  "vercel-build": "npx prisma generate"
+    "vercel-build": "npx prisma generate && npm run build"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.1",
@@ -24,7 +24,7 @@
     "@nestjs/swagger": "^7.1.17",
     "@prisma/client": "^5.8.0",
     "@vendia/serverless-express": "^4.12.6",
-    "aws-lambda": "^1.0.7",
+    "express": "^4.18.2",
     "axios": "^1.6.5",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
